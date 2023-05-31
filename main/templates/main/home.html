@@ -7,9 +7,36 @@
 {% block main %}
   <main>
     <div class="container">
-      <h1 class= "text-center display-2">Home</h1>
+      <h1 class= "text-center display-2">Welcome</h1>
+      <p class="text-center pb-3">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Temporibus, velit quia? Aliquid accusantium ab quidem debitis recusandae corrupti sit magni voluptas animi nemo aut, delectus minus pariatur laboriosam adipisci non.</p>
+      <div class="py-3">
+        {% for post in posts %}
+          <div class="card mt-4">
+            <div class="card-header">
+              <strong>Author: @{{ post.author.username }}</strong>
+            </div>
+            <div class="card-body d-flex flex-row justify-content-between">
+              <div>
+                <h5 class="card-title">{{ post.title }}</h5>
+                <p>{{ post.body }}</p>
+              </div>
+              <div class="d-block">
+                {% if request.user == post.author %}
+                  <button class="btn btn-info my-2">Edit</button>
+                  <form action="" method="post">
+                    {% csrf_token %}
+                    <button type="submit" name="post-id" value="{{ post.id }}" class="btn btn-danger">Delete</button>
+                  </form>
+                {% endif %}
+              </div>
+            </div>
+            <div class="card-footer text-muted">
+              {{ post.created }}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
     </div>
-
   </main>
 {% endblock main %}
   

@@ -3,11 +3,20 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 
 from .forms import RegisterForm, PostForm
+from .models import Post
 
 
 @login_required(login_url="/login/")
 def home_page(request):
-    return render(request, "main/home.html")
+    posts = Post.objects.all()
+    if request.method == "POST":
+        post_id = request.POST.get("post-id")
+        post = Post.objects.filter(id=post_id).first()
+        if post and post.author == request.user:
+            post.delete()
+        return redirect("home")
+
+    return render(request, "main/home.html", {"posts": posts})
 
 
 @login_required(login_url="/login/")
