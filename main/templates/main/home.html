@@ -21,7 +21,7 @@
                 <p>{{ post.body }}</p>
               </div>
               <div class="d-block">
-                {% if request.user == post.author %}
+                {% if request.user == post.author or perms.main.delete_post %}
                   <button class="btn btn-info my-2">Edit</button>
                   <form action="" method="post">
                     {% csrf_token %}
