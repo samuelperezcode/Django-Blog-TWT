@@ -69,7 +69,7 @@ DATABASES = {
         "NAME": "webCollege",
         "USER": "samucode",
         "PASSWORD": "soria2904",
-        "HOST": "172.24.187.6",
+        "HOST": "172.25.77.215",
         "PORT": "5432",
     }
 }
